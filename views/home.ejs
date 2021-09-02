@@ -4,77 +4,74 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <div style="max-width: 650px; margin: 35px auto;" id="chart"></div>
+            <div class="container text-white">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card bg-dark">
+                            <div class="card-header">
+                                <h4>Ultimos livros Alugados</h4>
+                            </div>
+                            <div class="card-body" style="max-height: 200px;">
+                                <% aluguel.forEach(a => { %>
+                                <li style="list-style: circle;"><%= a.livro.nome %></li>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <col-12>
+                        <div class="card bg-dark mt-3">
+                            <div class="card-header">
+                                <h4 style="font-size: 22px;">Ultimos Clientes que fizeram reserva</h4>
+                            </div>
+                            <div class="card-body" style="max-height: 200px;">
+                                <% aluguel.forEach(a => { %>
+                                <li style="list-style: circle;"><%= a.usuario.nome %></li>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </col-12>
+                </div>
+            </div>
         </div>
         <div class="col-6">
-            <div style="max-width: 650px; margin: 35px auto;" id="chart2"></div>
+            <div class="row">
+                <div class="col-12">
+                    <div style="max-width: 500px; margin: 35px auto;" id="chart2"></div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<%- include ('partials/footer.ejs') %>
+    <%- include ('partials/footer.ejs') %>
 
-<script>
-    var options = {
-        title: {
-            text: "Gráfico Aleatório",
-            align: 'center',
-            margin: 10,
-            offsetX: 0,
-            offsetY: 0,
-            floating: false,
-            style: {
-                fontSize: '14px',
-                fontWeight: 'bold',
-                fontFamily: undefined,
-                color: '#fff'
+    <script>
+        var options2 = {
+            title: {
+                text: "Gráfico Aleatório",
+                align: 'left',
+                margin: 10,
+                offsetX: 0,
+                offsetY: 0,
+                floating: false,
+                style: {
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    fontFamily: undefined,
+                    color: '#fff'
+                },
             },
-        },
-        chart: {
-            type: 'bar'
-        },
-        series: [{
-            name: 'sales',
-            data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
-        }],
-        xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-        }
-    }
-
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-    chart.render();
-</script>
-
-<script>
-    var options2 = {
-        title: {
-            text: "Gráfico Aleatório",
-            align: 'center',
-            margin: 10,
-            offsetX: 0,
-            offsetY: 0,
-            floating: false,
-            style: {
-                fontSize: '14px',
-                fontWeight: 'bold',
-                fontFamily: undefined,
-                color: '#fff'
+            chart: {
+                type: 'donut',
+                foreColor: '#fff'
             },
-        },
-        chart: {
-            type: 'donut',
-            foreColor: '#fff'
-        },
-        series: [44, 55, 13, 33],
-        labels: ['Vermelho', 'Amarelo', 'Laranja', 'Verde'],
-        chartOptions: {
-            labels: ['Vermelho', 'Amarelo', 'Laranja', 'Verde']
+            series: [44, 55, 13, 33],
+            labels: ['Vermelho', 'Amarelo', 'Laranja', 'Verde'],
+            chartOptions: {
+                labels: ['Vermelho', 'Amarelo', 'Laranja', 'Verde']
+            }
         }
-    }
 
-    var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
 
-    chart2.render();
-</script>
+        chart2.render();
+    </script>

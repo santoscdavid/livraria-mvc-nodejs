@@ -18,7 +18,7 @@ const aluguelController = require('./aluguel/aluguelController');
 const Admin = require('./admin/Admin');
 const Editoras = require('./editoras/Editora');
 const Livro = require('./livros/Livro');
-const User = require('./usuarios/Usuario');
+const Usuario = require('./usuarios/Usuario');
 const Aluguel = require('./aluguel/Aluguel');
 
 // Cookie Parser
@@ -65,8 +65,24 @@ app.get('/sobre', (req,res)=>{
 
 const adminAuth = require('./config/adminAuth');
 
-app.get('/home', adminAuth, (req,res)=>{
-    res.render('home');
+app.get('/home', (req,res)=>{
+    Aluguel.findAll({
+        order: [
+            ['id', 'DESC']
+        ],
+        include: [{
+            model: Usuario,
+            required: true
+        }, {
+            model: Livro,
+            required: true
+        }]
+    }).then(aluguel => {
+
+        res.render('home',{
+            aluguel: aluguel,
+        });
+    })
 });
 
 app.listen(3000, ()=>{
