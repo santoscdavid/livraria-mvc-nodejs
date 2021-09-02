@@ -1,0 +1,69 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container">
+
+    <%- include ('../../partials/erroId.ejs') %>
+
+    <h2 class="float-start text-white">Lista de Editoras</h2>
+    <a href="/editoras/criar" class=" align-middle btn btn-success float-end">Criar</a>
+
+    <table class="table table-dark table-hover table-bordered">
+        <caption>Lista de Editoras</caption>
+        <thead>
+            <tr class="table-dark">
+                <th>#Id</th>
+                <th>Nome da Editora</th>
+                <th>Cidade</th>
+                <th class="text-center"><i class="fas fa-tools"></i> Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% editoras.forEach(editoras => { %>
+
+            <tr class="table-dark">
+                <th><%= editoras.id %> </th>
+                <td><%= editoras.nome %> </td>
+                <td><%= editoras.cidade %> </td>
+                <td class="text-center">
+
+                    <a href="/editoras/edit/<%= editoras.id %>">
+                        <button class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i>
+                            Editar
+                        </button>
+                    </a>
+
+                    <form action="/editoras/apagar" style="display: inline;" method="post"
+                    onsubmit="deletar(event, this)">
+
+                        <input type="hidden" name="id" value="<%= editoras.id %>">
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                            Apagar
+                        </button>
+
+                    </form>
+
+                </td>
+            </tr>
+
+            <% }) %>
+        </tbody>
+    </table>
+
+</div>
+
+<%- include ('../../partials/footer.ejs') %>
+
+<script>
+    function deletar(event, form) {
+        event.preventDefault();
+        var decision = confirm("Você quer deletar esta Editora?");
+        if (decision) {
+            form.submit();
+        } else {
+            window.alert("Editora não foi deletada.");
+        }
+    }
+</script>

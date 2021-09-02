@@ -1,0 +1,71 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container-fluid">
+
+    <%- include ('../../partials/erroId.ejs') %>
+
+    <h2 class="float-start text-white">Lista de Alugueis</h2>
+    <a href="/aluguel/novo" class=" align-middle btn btn-success float-end">Criar</a>
+
+    <table class="table table-sm table-responsive table-dark table-hover table-bordered">
+        <caption>Alugueis Feitos</caption>
+        <thead>
+            <tr class="table-dark">
+                <th>ID</th>
+                <th>Livro</th>
+                <th>Nome do Usuário</th>
+                <th>Reserva</th>
+                <th>Previsão</th>
+                <th>Devolução</th>
+                <th class="text-center"><i class="fas fa-tools"></i> Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% aluguel.forEach(a => { %>
+            <tr class="table-dark">
+                <th><%= a.id %></th>
+                <td><%= a.livro.nome %></td>
+                <td><%= a.usuario.nome %></td>
+                <td><%= a.data_aluguel %></td>
+                <td><%= a.previsao %></td>
+                <td><%= a.devolucao %></td>
+                <td class="text-center">
+                      
+                        <a href="/aluguel/edit/<%= a.id %>" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i>
+                            Editar
+                        </a>
+                    <form action="/aluguel/deletar" style="display: inline;" method="post"
+                        onsubmit="deletar(event, this)">
+
+                        <input type="hidden" name="id" value="<%= a.id %>">
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                            Apagar
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+</div>
+
+<%- include ('../../partials/footer.ejs') %>
+
+<script>
+    function deletar(event, form) {
+        event.preventDefault();
+        var decision = confirm("Você quer deletar esse Aluguel?");
+        if (decision) {
+            form.submit();
+        } else {
+            window.alert("Aluguel não foi deletado.");
+        }
+    }
+</script>

@@ -1,0 +1,80 @@
+<%- include ('partials/header.ejs') %>
+<%- include ('partials/navbar.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div style="max-width: 650px; margin: 35px auto;" id="chart"></div>
+        </div>
+        <div class="col-6">
+            <div style="max-width: 650px; margin: 35px auto;" id="chart2"></div>
+        </div>
+    </div>
+</div>
+
+<%- include ('partials/footer.ejs') %>
+
+<script>
+    var options = {
+        title: {
+            text: "Gráfico Aleatório",
+            align: 'center',
+            margin: 10,
+            offsetX: 0,
+            offsetY: 0,
+            floating: false,
+            style: {
+                fontSize: '14px',
+                fontWeight: 'bold',
+                fontFamily: undefined,
+                color: '#fff'
+            },
+        },
+        chart: {
+            type: 'bar'
+        },
+        series: [{
+            name: 'sales',
+            data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+        }],
+        xaxis: {
+            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+        }
+    }
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+    chart.render();
+</script>
+
+<script>
+    var options2 = {
+        title: {
+            text: "Gráfico Aleatório",
+            align: 'center',
+            margin: 10,
+            offsetX: 0,
+            offsetY: 0,
+            floating: false,
+            style: {
+                fontSize: '14px',
+                fontWeight: 'bold',
+                fontFamily: undefined,
+                color: '#fff'
+            },
+        },
+        chart: {
+            type: 'donut',
+            foreColor: '#fff'
+        },
+        series: [44, 55, 13, 33],
+        labels: ['Vermelho', 'Amarelo', 'Laranja', 'Verde'],
+        chartOptions: {
+            labels: ['Vermelho', 'Amarelo', 'Laranja', 'Verde']
+        }
+    }
+
+    var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+
+    chart2.render();
+</script>

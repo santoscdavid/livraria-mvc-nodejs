@@ -1,0 +1,76 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container"> 
+
+    <%- include ('../../partials/erroId.ejs') %>
+
+    <h2 class="float-start text-white">Lista de Administradores</h2>
+    <a href="/admin/criar" class=" align-middle btn btn-success float-end">Criar</a>
+
+    <table class="table table-sm table-responsive table-dark table-hover table-bordered">
+        <caption>Lista de Administradores</caption>
+        <thead>
+            <tr class="table-dark">
+                <th>Nome do Usuário</th>
+                <th>Email do Usuário</th>
+                <th>Senha do Usuário (em hash)</th>
+                <th class="text-center"><i class="fas fa-tools"></i> Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(admin != undefined || admin == ""){ %> 
+            <% admin.forEach(admin=> { %>
+                <tr class="table-dark">
+                    <td><%= admin.nome %></td>
+                    <td><%= admin.email %></td>
+                    <td class="overflow-hidden" style="max-width: 100px;"><%= admin.senha %></td>
+                    <td class="text-center">
+                        
+                        
+                    <button class="btn btn-warning btn-sm disabled" aria-disabled="true" disabled>
+                        <i class="fas fa-edit"></i>
+                        Editar
+                    </button>
+                    
+
+                    <form action="/admin/deletar" style="display: inline;" method="post"
+                    onsubmit="deletar(event, this)">
+
+                        <input type="hidden" name="id" value="<%= admin.id %>">
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                            Apagar
+                        </button>
+                        
+                    </form>
+                    
+                </td>
+
+            </tr>
+            <% }) %>
+            <% }else{ %>
+                <tr class="table-dark">
+                    <td colspan="4">
+                        <h4>Não há Administradores criados</h4>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+</div>
+
+<%- include ('../../partials/footer.ejs') %>
+
+<script>
+    function deletar(event, form) {
+        event.preventDefault();
+        var decision = confirm("Você quer deletar esse ADMIN?");
+        if (decision) {
+            form.submit();
+        } else {
+            window.alert("ADMIN não foi deletada.");
+        }
+    }
+</script>

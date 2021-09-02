@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    text-decoration: none !important; 
+    list-style: none;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+h1
+    {
+        color: beige;
+        text-align: center;
+        margin-top: 30vh;
+    }
+
+label.logo
+{
+    color: #fff;
+    font-size: 35px;
+    line-height: 80px;
+    padding: 0 100px;
+    font-weight: bold;
+}
+label a
+{
+    color: #fff;
+
+}
+
+nav
+{
+    background-color: #21212e;
+    height: 80px;
+    width: 100%;
+
+    margin-bottom: 25px;
+}
+
+nav ul 
+{
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul li 
+{
+    display: inline-block;
+    line-height: 80px;
+    margin: 0 5px;
+}
+
+nav ul li a 
+{
+    color: aliceblue;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 5px;
+    text-transform: capitalize;
+}
+
+a.active
+{
+    background: #141414;
+    transition: .5s;
+}
+a:hover
+{
+    background: #141414;
+    transition: .5s;
+    color: rgb(124, 119, 110);
+}
+
+.checkbtn
+{
+    font-size: 30px;
+    color: white;
+    float: right;
+    line-height: 80px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#check
+{
+    display: none;
+}
+
+@media (max-width: 1200px)
+{
+    label.logo
+    {
+        font-size: 22px;
+        padding-left: 50px;
+    }
+    nav ul li a
+    {
+        font-size: 16px;
+
+    }
+}
+
+@media (max-width: 1100px)
+{
+    label.logo
+    {
+        font-size: 18px;
+        padding-left: 50px;
+    }
+    nav ul li a
+    {
+        font-size: 12px;
+
+    }
+}
+
+@media (max-width: 858px)
+{
+    .checkbtn
+    {
+        display: block;
+    }
+    ul
+    {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background-color: #0c0a0a;
+        top: 80px;
+        left: -100%;
+        text-align: center;
+        transition: all .5s;
+        z-index: 1000;
+    }
+    nav ul li 
+    {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+    nav ul li a
+    {
+        font-size: 15px;
+    }
+    a:hover, a.active
+    {
+        background: none;
+        color: rgb(124, 119, 110);
+    }
+    #check:checked ~ ul 
+    {
+        left: 0
+    }
+}
+
+ 

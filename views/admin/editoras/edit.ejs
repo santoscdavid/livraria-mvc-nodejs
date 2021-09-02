@@ -1,0 +1,41 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container">
+
+    <div class="card text-white bg-dark" style="max-width: 800px;margin: auto;">
+        <div class="card-header">
+            <h2 class="text-center my-2"><i class="fas fa-pen"></i> Editar Editora</h2>
+        </div>
+        
+        <div class="card-body">
+            <form action="/editoras/alterar" method="post">
+                <input type="hidden" name="id" value="<%= editora.id %> ">
+
+                <label for="nome" class="form-label">
+                    <h4><i class="fas fa-newspaper"></i> Nome da Editora:</h4>
+                </label>
+                <input value="<%= editora.nome %> " type="text" name="nome" placeholder="Digite o nome da editora" class="form-control" >
+                
+                   
+
+                <label for="cidade" class="form-label mt-3">
+                    <h4><i class="fas fa-city"></i> Cidade da Editora:</h4>
+                </label>
+                <input value="<%= editora.cidade %> " type="text" name="cidade" placeholder="informe a cidade da editora" class="form-control" >
+
+                    
+
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check-circle"></i>
+                        Alterar
+                    </button>    
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include ('../../partials/footer.ejs') %>

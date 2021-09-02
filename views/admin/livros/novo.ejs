@@ -1,0 +1,82 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container">
+
+    <div class="card text-white bg-dark" style="max-width: 800px;margin: auto;">
+        <div class="card-header">
+            <h2 class="text-center my-2"><i class="fas fa-folder-plus"></i> Novo Livro</h2>
+        </div>
+
+        <div class="card-body">
+            <form action="/livros/salvar" method="post">
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="nome" class="form-label">
+                            <h4><i class="fas fa-signature"></i> Nome da livro:</h4>
+                        </label>
+                        <input type="text" name="nome" placeholder="Digite o nome do livro" class="form-control">
+                        <p class="text-danger"><%= nomeErro %></p>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="codigo" class="form-label">
+                            <h4><i class="fas fa-barcode"></i> Código do livro:</h4>
+                        </label>
+                        <input type="number" name="codigo" placeholder="Digite o código do livro" class="form-control">
+                        <p class="text-danger"><%= codErro %></p>
+                    </div>
+                </div>
+
+                <label for="autor" class="form-label mt-3">
+                    <h4><i class="fas fa-copyright"></i> Nome do Autor:</h4>
+                </label>
+                <input type="text" name="autor" placeholder="Informe o nome do autor" class="form-control">
+                <p class="text-danger"><%= autorErro %></p>
+
+                <div class="row">
+                    <div class="col-4">
+                        <label for="quant" class="form-label mt-3">
+                            <h6><i class="fas fa-list-ol"></i> Quantidade do livro</h4>
+                        </label>
+                        <input type="number" name="quant" placeholder="Informe a quantidade"
+                            class="form-control">
+                            <p class="text-danger"><%= quantErro %></p>
+                    </div>
+
+                    <div class="col-4">
+                        <label for="editora" class="form-label mt-3">
+                            <h6><i class="far fa-newspaper"></i> Selecione a Editora</h4>
+                        </label>
+                        <select class="form-select" name="editora">
+                            <option value="" selected>Selecione aqui</option>
+                            <% editora.forEach((editora) => { %>
+                                <option value="<%= editora.id %>"><%= editora.nome %> </option>
+                            <% }) %>
+                        </select>
+                        <p class="text-danger"><%= editoraErro %></p>
+                    </div>
+
+                    <div class="col-4">
+                        <label for="lancamento" class="form-label mt-3">
+                            <h6><i class="fas fa-calendar-week"></i> Data de Lançamento</h4>
+                        </label>
+                        <input type="date" name="lancamento" class="form-control">
+                            <p class="text-danger"><%= lancamentoErro %></p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check-circle"></i>
+                        Criar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include ('../../partials/footer.ejs') %>

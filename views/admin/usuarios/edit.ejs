@@ -1,0 +1,61 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container">
+
+    <div class="card text-white bg-dark" style="max-width: 800px;margin: auto;">
+        <div class="card-header">
+            <h2 class="text-center my-2"><i class="fas fa-pen"></i> Editar Usuário</h2>
+        </div>
+
+        <div class="card-body">
+            <form action="/usuarios/alterar" method="post">
+
+                <input type="hidden" name="id" value="<%= user.id %>">
+
+                <label for="nome" class="form-label mt-3">
+                    <h4><i class="fas fa-signature"></i> Nome do Usuário</h4>
+                </label>
+                <input value="<%= user.nome %>" type="text" name="nome" placeholder="Informe o nome do Admin" class="form-control">
+                <p class="text-danger"><%= nomeErro %> </p>
+
+                <label for="email" class="form-label">
+                    <h4><i class="fas fa-envelope"></i> Email do Usuário</h4>
+                </label>
+                <input value="<%= user.email %> " type="email" name="email" placeholder="Digite o email do Usuário" class="form-control">
+                <p class="text-danger"><%= emailErro %> </p>
+
+                <div class="row">
+
+                    <div class="col-6">
+                        <label for="endereco" class="form-label mt-3">
+                            <h4><i class="fas fa-key"></i> Endereço do Usuário</h4>
+                        </label>
+                        <input value="<%= user.endereco %>" class="form-control" type="text" name="endereco"
+                            placeholder="Informe o Endereço do Usuário">
+                        <p class="text-danger"><%= enderecoErro %> </p>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="cidade" class="form-label mt-3">
+                            <h4><i class="fas fa-city"></i> Cidade do Usuário</h4>
+                        </label>
+                        <input value="<%= user.cidade %>" class="form-control" type="text" name="cidade"
+                            placeholder="Informe a Cidade do Usuário">
+                        <p class="text-danger"><%= cidadeErro %> </p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check-circle"></i>
+                        Alterar
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include ('../../partials/footer.ejs') %>

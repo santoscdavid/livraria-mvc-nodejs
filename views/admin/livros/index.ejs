@@ -1,0 +1,74 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container-fluid">
+
+    <%- include ('../../partials/erroId.ejs') %>
+
+    <h2 class="float-start text-white">Lista de Livros</h2>
+
+    <a href="/livros/criar" class=" align-middle btn btn-success float-end">Criar</a>
+
+    <table class="table table-sm table-responsive table-dark table-hover table-bordered">
+        <caption>Lista de Livros</caption>
+        <thead>
+            <tr class="table-dark">
+                <th>Cod_livro</th>
+                <th>Nome do Livro</th>
+                <th>Autor</th>
+                <th>Lançamento</th>
+                <th>Editora</th>
+                <th class="text-center"><i class="fas fa-tools"></i> Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% livros.forEach(livros => { %>
+            <tr class="table-dark">
+                <th><%= livros.cod_livro %> </th>
+                <td><%= livros.nome %> </td>
+                <td><%= livros.autor %> </td>
+                <td><%= livros.lancamento %> </td>
+                <td><%= livros.editora.nome %> </td>
+                <td class="text-center">
+
+                    <a href="/livros/edit/<%=livros.id%>">
+                        <button class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i>
+                            Editar
+                        </button>
+                    </a>
+
+                    <form action="/livros/deletar" style="display: inline;" method="post"
+                        onsubmit="deletar(event, this)">
+
+                        <input type="hidden" name="id" value="<%=livros.id%>">
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                            Apagar
+                        </button>
+
+                    </form>
+
+                </td>
+                <% }) %>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+</div>
+
+<%- include ('../../partials/footer.ejs') %>
+
+<script>
+    function deletar(event, form) {
+        event.preventDefault();
+        var decision = confirm("Você quer deletar esse Livro?");
+        if (decision) {
+            form.submit();
+        } else {
+            window.alert("Livro não foi deletada.");
+        }
+    }
+</script>

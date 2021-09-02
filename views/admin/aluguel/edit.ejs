@@ -1,0 +1,115 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container">
+
+    <div class="card text-white bg-dark" style="max-width: 800px;margin: auto;">
+        <div class="card-header">
+            <h2 class="text-center my-2"><i class="fas fa-pen"></i> Editar Aluguel</h2>
+        </div>
+
+        <div class="card-body">
+            <form action="/aluguel/alterar" method="post">
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="usuario" class="form-label">
+                            <h4>
+                                <h4><i class="fas fa-user"></i> Cliente</h4>
+                            </h4>
+                        </label>
+                        <input value="<%= aluguel.usuarioId %>" class="form-control" name="usuario" list="usuario" placeholder="Digite para buscar">
+                        <datalist id="usuario">
+                            <% user.forEach(user => { %>
+                             <option value="<%= user.id %>"><%= user.nome %></option>
+                            <% }) %>
+                            <p class="text-danger"><%= usuarioErro %> </p>
+                        </datalist>
+                    </div>
+                    <div class="col-6">
+                        <label for="livro" class="form-label">
+                            <h4>
+                                <h4><i class="fas fa-book"></i> Livro</h4>
+                            </h4>
+                        </label>
+                        <input value="<%= aluguel.livroId %>" class="form-control" name="livro" list="livro" placeholder="Digite para buscar">
+                        <datalist id="livro">
+                            <% livro.forEach(livro => { %>
+                                <option value="<%= livro.id %>"><%= livro.nome %></option>
+                            <% }) %>
+                        </datalist>
+                        <p class="text-danger"><%= livroErro %> </p>
+                    </div>
+                    <div class="col-6">
+                        <label for="data_aluguel" class="form-label mt-3">
+                            <h4><i class="fas fa-calendar-week"></i> Data de Aluguel</h4>
+                        </label>
+                        <input value="<%= aluguel.data_aluguel %>" type="date" id="aluguel" name="data_aluguel" class="form-control">
+                        <p class="text-danger"><%= reservaErro %> </p>
+                    </div>
+                    <div class="col-6">
+                        <label for="previsao" class="form-label mt-3">
+                            <h4><i class="fas fa-calendar-week"></i> Previsão de Devolução</h4>
+                        </label>
+                        <input value="<%= aluguel.previsao %> " type="date" id="devolucao" name="previsao" class="form-control">
+                        <p class="text-danger"><%= devolucaoErro %> </p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check-circle"></i>
+                        Alterar
+                    </button>
+                </div>
+        </div>
+
+
+        </form>
+    </div>
+</div>
+</div>
+
+<%- include ('../../partials/footer.ejs') %>
+
+<script>
+    $(document).ready(function () {
+        var now = new Date();
+        var month = (now.getMonth() + 1);
+        var day = now.getDate();
+        if (month < 10)
+            month = "0" + month;
+        if (day < 10)
+            day = "0" + day;
+        var today = now.getFullYear() + '-' + month + '-' + day;
+        $('#aluguel').val(today);
+    });
+
+    var input = document.getElementById('aluguel');
+    input.addEventListener('change', function () {
+        var agora = new Date();
+        var escolhida = new Date(this.value);
+        if (escolhida < agora) this.value = [agora.getFullYear(), agora.getMonth() + 1, agora.getDate()].map(
+            v => v < 10 ? '0' + v : v).join('-');
+    });
+    
+    $(document).ready(function () {
+        var now = new Date();
+        var month = (now.getMonth() + 1);
+        var day = 1 + now.getDate();
+        if (month < 10)
+            month = "0" + month;
+        if (day < 10)
+            day = "0" + day;
+        var today = now.getFullYear() + '-' + month + '-' + day;
+        $('#devolucao').val(today);
+    });
+    var input = document.getElementById('devolucao');
+    input.addEventListener('change', function () {
+        var agora = new Date();
+        var escolhida = new Date(this.value);
+        if (escolhida < agora) this.value = [agora.getFullYear(), agora.getMonth() + 1, agora.getDate()+1].map(
+            v => v < 10 ? '0' + v : v).join('-');
+    });
+
+</script>
