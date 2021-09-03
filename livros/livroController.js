@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../config/adminAuth');
 
 const Editora = require('../editoras/Editora');
 const Livro = require('./Livro');
 
 // Listar
-router.get('/livros', (req, res)=>{
+router.get('/livros', adminAuth, (req, res)=>{
     let idErro = req.flash('idErro')
     idErro = (idErro == undefined || idErro.length == 0 ) ? undefined : idErro ;
 
@@ -21,7 +22,7 @@ router.get('/livros', (req, res)=>{
 });
 
 //Criar
-router.get('/livros/criar', (req,res)=>{
+router.get('/livros/criar', adminAuth, (req,res)=>{
     let codErro = req.flash('codErro');
     let nomeErro = req.flash('nomeErro');
     let autorErro = req.flash('autorErro');
@@ -45,7 +46,7 @@ router.get('/livros/criar', (req,res)=>{
     });
 });
 
-router.post('/livros/salvar', (req,res)=>{
+router.post('/livros/salvar', adminAuth, (req,res)=>{
     let cod_livro = req.body.codigo;
     let nome = req.body.nome;
     let autor = req.body.autor;
@@ -102,7 +103,7 @@ router.post('/livros/salvar', (req,res)=>{
 });
 
 // Deletar
-router.post('/livros/deletar', (req,res)=>{
+router.post('/livros/deletar', adminAuth, (req,res)=>{
     let id = req.body.id;
     let idErro;
 
@@ -128,7 +129,7 @@ router.post('/livros/deletar', (req,res)=>{
 });
 
 // Editar
-router.get('/livros/edit/:id', (req,res)=>{
+router.get('/livros/edit/:id', adminAuth, (req,res)=>{
     let id = req.params.id;
     
     let idErro = req.flash('idErro');
@@ -173,7 +174,7 @@ router.get('/livros/edit/:id', (req,res)=>{
     }
 });
 
-router.post('/livros/alterar', (req,res)=>{
+router.post('/livros/alterar', adminAuth, (req,res)=>{
     let id = req.body.id;
     let cod_livro = req.body.codigo;
     let nome = req.body.nome;

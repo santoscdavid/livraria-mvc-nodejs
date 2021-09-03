@@ -29,13 +29,31 @@
                 <td><%= a.usuario.nome %></td>
                 <td><%= a.data_aluguel %></td>
                 <td><%= a.previsao %></td>
-                <td><%= a.devolucao %></td>
+                <td class="text-center">
+
+                    <% if(a.devolucao == undefined | a.devolucao == ""){ %> 
+                        <form action="/aluguel/concluir" method="post" class="text-center">
+                            <input type="hidden" name="id" value="<%= a.id %>">                            
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-check-circle"></i> Concluir</button>
+                        </form>
+                    <% }else{ %>
+                        <% if(a.devolucao.valueOf() <= a.previsao.valueOf()){ %>
+                            <%= a.devolucao %> (Sem atraso)
+                        <% }else{ %>  
+                            <%= a.devolucao %> (Com atraso)
+                        <% } %> 
+                    <% } %> 
+                    
+                </td>
                 <td class="text-center">
                       
                         <a href="/aluguel/edit/<%= a.id %>" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i>
                             Editar
                         </a>
+
+                        
+                        
                     <form action="/aluguel/deletar" style="display: inline;" method="post"
                         onsubmit="deletar(event, this)">
 
@@ -68,4 +86,17 @@
             window.alert("Aluguel não foi deletado.");
         }
     }
+
+    $(document).ready(function () {
+        var now = new Date();
+        var month = (now.getMonth() + 1);
+        var day = now.getDate();
+        if (month < 10)
+            month = "0" + month;
+        if (day < 10)
+            day = "0" + day;
+        var today = now.getFullYear() + '-' + month + '-' + day;
+        $('#dataHoje').val(today);
+    });
+
 </script>

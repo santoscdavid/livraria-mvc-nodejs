@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../config/adminAuth');
 
 const Aluguel = require('./Aluguel');
 const Usuario = require('../usuarios/Usuario');
 const Livro = require('../livros/Livro');
 
 // Listar
-router.get('/aluguel', (req, res) => {
+router.get('/aluguel', adminAuth, (req, res) => {
     let idErro = req.flash('idErro');
     idErro = (idErro == undefined || idErro.length == 0) ? undefined : idErro;
 
@@ -30,7 +31,7 @@ router.get('/aluguel', (req, res) => {
 });
 
 // Criar
-router.get('/aluguel/novo', (req, res) => {
+router.get('/aluguel/novo', adminAuth, (req, res) => {
     let usuarioErro = req.flash('usuarioErro');
     let livroErro = req.flash('livroErro');
     let reservaErro = req.flash('reservaErro');
@@ -56,7 +57,7 @@ router.get('/aluguel/novo', (req, res) => {
     });
 });
 
-router.post('/aluguel/salvar', (req, res) => {
+router.post('/aluguel/salvar', adminAuth, (req, res) => {
     let usuario = req.body.usuario;
     let livro = req.body.livro;
     let data_aluguel = req.body.data_aluguel;
@@ -98,7 +99,7 @@ router.post('/aluguel/salvar', (req, res) => {
 });
 
 // Deletar
-router.post('/aluguel/deletar', (req, res) => {
+router.post('/aluguel/deletar', adminAuth, (req, res) => {
     let id = req.body.id;
     let idErro;
 
@@ -126,7 +127,7 @@ router.post('/aluguel/deletar', (req, res) => {
 });
 
 // Editar
-router.get('/aluguel/edit/:id', (req, res) => {
+router.get('/aluguel/edit/:id', adminAuth, (req, res) => {
     let id = req.params.id;
     let idErro = req.flash('idErro');
     let usuarioErro = req.flash('usuarioErro');
@@ -144,7 +145,7 @@ router.get('/aluguel/edit/:id', (req, res) => {
         if (!isNaN(id)) {
             Aluguel.findOne({
                 where: {
-                    id:id
+                    id: id
                 },
                 include: [{
                     model: Usuario,
@@ -157,7 +158,7 @@ router.get('/aluguel/edit/:id', (req, res) => {
                 Usuario.findAll().then(user => {
                     Livro.findAll().then(livro => {
                         res.render('admin/aluguel/edit', {
-                            aluguel:aluguel,
+                            aluguel: aluguel,
                             user: user,
                             livro: livro,
                             usuarioErro,
@@ -180,6 +181,25 @@ router.get('/aluguel/edit/:id', (req, res) => {
 
         res.redirect('/aluguel');
     }
+});
+
+// Concluir 
+router.post('/aluguel/concluir', (req, res) => {
+    let id = req.body.id;
+
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+    dataAtual = dia + '/' + mes + '/' + ano;
+
+    Aluguel.update({
+        devolucao:dataAtual
+    },{
+        where:{id:id}
+    }).then(()=>{
+        res.redirect('/aluguel');
+    })
 });
 
 module.exports = router;

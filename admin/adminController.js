@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../config/adminAuth');
 
 const bcrypt = require('bcryptjs');
 const validator = require("email-validator");
@@ -7,7 +8,7 @@ const validator = require("email-validator");
 const Admin = require('./Admin');
 
 // Listar
-router.get('/admin/', (req, res) => {
+router.get('/admin/', adminAuth, (req, res) => {
     let idErro = req.flash('idErro');
     idErro = (idErro == undefined || idErro.length == 0) ? undefined : idErro;
 
@@ -24,7 +25,7 @@ router.get('/admin/', (req, res) => {
 });
 
 // Criar
-router.get('/admin/criar', (req, res) => {
+router.get('/admin/criar', adminAuth, (req, res) => {
     let nomeErro = req.flash('nomeErro');
     let emailErro = req.flash('emailErro');
     let senhaErro = req.flash('senhaErro');
@@ -40,7 +41,7 @@ router.get('/admin/criar', (req, res) => {
     });
 });
 
-router.post('/admin/salvar', (req, res) => {
+router.post('/admin/salvar', adminAuth, (req, res) => {
     let nome = req.body.nome;
     let email = req.body.email;
     let senha = req.body.senha;
@@ -108,7 +109,7 @@ router.post('/admin/salvar', (req, res) => {
 });
 
 // Deletar
-router.post('/admin/deletar', (req, res) => {
+router.post('/admin/deletar', adminAuth, (req, res) => {
     let id = req.body.id;
     let idErro;
 
@@ -165,7 +166,7 @@ router.post('/autenticar', (req, res) => {
 });
 
 // Logout
-router.get('/logout', (req, res) => {
+router.get('/logout',  (req, res) => {
     req.session.user = undefined;
     res.redirect('/');
 });

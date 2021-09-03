@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../config/adminAuth');
 
 const Editora = require('./Editora');
 
 // Listar
-router.get('/editoras', (req,res)=>{
+router.get('/editoras', adminAuth, (req,res)=>{
     let idErro = req.flash('idErro');
     idErro = (idErro == undefined || idErro.length == 0 ) ? undefined : idErro ;
 
@@ -14,7 +15,7 @@ router.get('/editoras', (req,res)=>{
 });
 
 // Criar
-router.get('/editoras/criar', (req,res)=>{
+router.get('/editoras/criar', adminAuth, (req,res)=>{
     var nomeErro = req.flash('nomeErro');
     var cidadeErro = req.flash('cidadeErro');
 
@@ -25,7 +26,7 @@ router.get('/editoras/criar', (req,res)=>{
     res.render('admin/editoras/novo', {nomeErro,cidadeErro});
 });
 
-router.post('/editoras/salvar', (req,res)=>{
+router.post('/editoras/salvar', adminAuth, (req,res)=>{
     let nome = req.body.nome;
     let cidade = req.body.cidade;
 
@@ -66,7 +67,7 @@ router.post('/editoras/salvar', (req,res)=>{
 });
 
 // Deletar
-router.post('/editoras/apagar',(req,res)=>{
+router.post('/editoras/apagar', adminAuth, (req,res)=>{
     let id = req.body.id;
     let idErro;
 
@@ -92,7 +93,7 @@ router.post('/editoras/apagar',(req,res)=>{
 });
 
 // Editar
-router.get('/editoras/edit/:id', (req,res)=>{
+router.get('/editoras/edit/:id', adminAuth, (req,res)=>{
     let id = req.params.id;
     let idErro;
 
@@ -123,7 +124,7 @@ router.get('/editoras/edit/:id', (req,res)=>{
     }
 });
 
-router.post('/editoras/alterar', (req,res)=>{
+router.post('/editoras/alterar', adminAuth, (req,res)=>{
     let id = req.body.id;
     let nome = req.body.nome;
     let cidade = req.body.cidade;

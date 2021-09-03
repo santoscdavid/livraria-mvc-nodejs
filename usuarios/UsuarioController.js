@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../config/adminAuth');
 
 const validator = require("email-validator");
 const User = require('./Usuario')
 
 // Listar
-router.get('/usuarios', (req, res) => {
+router.get('/usuarios', adminAuth, (req, res) => {
     let idErro = req.flash('idErro');
     idErro = (idErro == undefined || idErro.length == 0) ? undefined : idErro;
 
@@ -22,7 +23,7 @@ router.get('/usuarios', (req, res) => {
 });
 
 //Criar
-router.get('/usuarios/criar', (req, res) => {
+router.get('/usuarios/criar', adminAuth, (req, res) => {
     let emailErro = req.flash('emailErro');
     let cidadeErro = req.flash('cidadeErro');
     let nomeErro = req.flash('nomeErro');
@@ -41,7 +42,7 @@ router.get('/usuarios/criar', (req, res) => {
     });
 });
 
-router.post('/usuarios/salvar', (req, res) => {
+router.post('/usuarios/salvar', adminAuth, (req, res) => {
     let nome = req.body.nome;
     let email = req.body.email;
     let endereco = req.body.endereco;
@@ -105,7 +106,7 @@ router.post('/usuarios/salvar', (req, res) => {
 });
 
 // Deletar
-router.post('/usuarios/deletar', (req, res) => {
+router.post('/usuarios/deletar', adminAuth, (req, res) => {
     let id = req.body.id;
     let idErro;
 
@@ -133,7 +134,7 @@ router.post('/usuarios/deletar', (req, res) => {
 });
 
 // Editar
-router.get('/usuarios/edit/:id', (req, res) => {
+router.get('/usuarios/edit/:id', adminAuth, (req, res) => {
     let id = req.params.id;
     let idErro;
 
@@ -176,7 +177,7 @@ router.get('/usuarios/edit/:id', (req, res) => {
     }
 });
 
-router.post('/usuarios/alterar', (req, res) => {
+router.post('/usuarios/alterar', adminAuth, (req, res) => {
     let id = req.body.id;
     let nome = req.body.nome;
     let email = req.body.email;

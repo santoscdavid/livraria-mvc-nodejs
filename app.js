@@ -65,8 +65,9 @@ app.get('/sobre', (req,res)=>{
 
 const adminAuth = require('./config/adminAuth');
 
-app.get('/home', (req,res)=>{
+app.get('/home', adminAuth, (req,res)=>{
     Aluguel.findAll({
+        limit: 4,
         order: [
             ['id', 'DESC']
         ],
